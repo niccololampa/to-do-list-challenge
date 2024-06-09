@@ -62,6 +62,16 @@ export default function MainPage() {
     });
   };
 
+  const onEdit = (inputValue, index) => {
+    setToDos((prevState) => {
+      const newState = [...prevState];
+
+      newState[index].taskName = inputValue;
+
+      return newState;
+    });
+  };
+
   return (
     <div className="flex justify-center">
       <ToDosContext.Provider value={toDos}>
@@ -82,13 +92,14 @@ export default function MainPage() {
                     index={index}
                     onDelete={onDelete}
                     onCompleted={onCompleted}
+                    onEdit={onEdit}
                   />
                 </div>
               ))}
             </div>
             <div className="flex justify-center p-2 border-t-2">
               <FilterComponent
-                count={toDos.length}
+                count={toDos.filter((todo) => todo.completed === false).length}
                 onFilter={onFilter}
                 onClear={onClear}
                 filter={filter}

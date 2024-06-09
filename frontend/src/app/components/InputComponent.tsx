@@ -19,7 +19,6 @@ export default function InputComponent(props) {
     <div>
       <input
         className="appearance-none  w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:border-none"
-        id="inline-full-name"
         type="text"
         value={inputValue}
         onChange={handleInputChange}
