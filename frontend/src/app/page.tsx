@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import ToDosContext from "./contexts/ToDosContext";
 import InputComponent from "./components/InputComponent";
 import CompleteAllComponent from "./components/CompleteAllComponent";
 import TaskListItem from "./components/TaskListItem";
@@ -37,7 +36,7 @@ export default function MainPage() {
     });
   };
 
-  const onFilter = (filter) => {
+  const onFilter = (filter: boolean | undefined) => {
     setFilter(filter);
   };
 
@@ -62,7 +61,7 @@ export default function MainPage() {
     });
   };
 
-  const onEdit = (inputValue, index) => {
+  const onEdit = (inputValue: string, index: number) => {
     setToDos((prevState) => {
       const newState = [...prevState];
 
@@ -74,40 +73,38 @@ export default function MainPage() {
 
   return (
     <div className="flex justify-center">
-      <ToDosContext.Provider value={toDos}>
-        <div className="flex items-center flex-col w-[1000px]">
-          <div className="flex justify-center p-2 text-[80px] text-red-800">
-            todos
+      <div className="flex items-center flex-col w-[1000px]">
+        <div className="flex justify-center p-2 text-[80px] text-red-800">
+          todos
+        </div>
+        <div className="border-2">
+          <div className="flex  p-2 border-b-2">
+            <CompleteAllComponent onCompleteAll={onCompleteAll} />
+            <InputComponent onAdd={onAdd} />
           </div>
-          <div className="border-2">
-            <div className="flex  p-2 border-b-2">
-              <CompleteAllComponent onCompleteAll={onCompleteAll} />
-              <InputComponent onAdd={onAdd} />
-            </div>
-            <div className="flex pl-2  flex-col">
-              {toDos.map((task, index) => (
-                <div key={index} hidden={filter === task.completed}>
-                  <TaskListItem
-                    task={task}
-                    index={index}
-                    onDelete={onDelete}
-                    onCompleted={onCompleted}
-                    onEdit={onEdit}
-                  />
-                </div>
-              ))}
-            </div>
-            <div className="flex justify-center p-2 border-t-2">
-              <FilterComponent
-                count={toDos.filter((todo) => todo.completed === false).length}
-                onFilter={onFilter}
-                onClear={onClear}
-                filter={filter}
-              />
-            </div>
+          <div className="flex pl-2  flex-col">
+            {toDos.map((task, index) => (
+              <div key={index} hidden={filter === task.completed}>
+                <TaskListItem
+                  task={task}
+                  index={index}
+                  onDelete={onDelete}
+                  onCompleted={onCompleted}
+                  onEdit={onEdit}
+                />
+              </div>
+            ))}
+          </div>
+          <div className="flex justify-center p-2 border-t-2">
+            <FilterComponent
+              count={toDos.filter((todo) => todo.completed === false).length}
+              onFilter={onFilter}
+              onClear={onClear}
+              filter={filter}
+            />
           </div>
         </div>
-      </ToDosContext.Provider>
+      </div>
     </div>
   );
 }
