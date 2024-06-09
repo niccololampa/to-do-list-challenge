@@ -50,6 +50,18 @@ export default function MainPage() {
     });
   };
 
+  const onCompleteAll = () => {
+    setToDos((prevState) => {
+      const newState = [...prevState];
+
+      newState.map((todo) => {
+        todo.completed = true;
+      });
+
+      return newState;
+    });
+  };
+
   return (
     <div className="flex justify-center">
       <ToDosContext.Provider value={toDos}>
@@ -59,7 +71,7 @@ export default function MainPage() {
           </div>
           <div className="border-2">
             <div className="flex  p-2 border-b-2">
-              <CompleteAllComponent />
+              <CompleteAllComponent onCompleteAll={onCompleteAll} />
               <InputComponent onAdd={onAdd} />
             </div>
             <div className="flex pl-2  flex-col">

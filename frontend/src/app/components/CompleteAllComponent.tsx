@@ -1,4 +1,5 @@
-export default function CompleteAllComponent() {
+export default function CompleteAllComponent(props) {
+  const { onCompleteAll } = props;
   return (
     <div>
       <button
@@ -6,6 +7,7 @@ export default function CompleteAllComponent() {
         data-dropdown-toggle="dropdown"
         className="mr-3 text-gray-800 h-10 focus:ring-2 focus:outline-none focus:ring-red-800 font-medium text-lg  p-2 text-center"
         type="button"
+        onClick={onCompleteAll}
       >
         <svg
           className="w-4 h-4 text-gray-800"
