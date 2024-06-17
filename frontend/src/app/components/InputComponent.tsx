@@ -16,7 +16,7 @@ export default function InputComponent(props) {
     }
   };
   return (
-    <div>
+    <div className="w-full">
       <input
         className="appearance-none  w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:border-none"
         type="text"
