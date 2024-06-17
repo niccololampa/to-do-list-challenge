@@ -4,6 +4,7 @@ import routes from './routes';
 import logger from 'morgan';
 import { createServer } from 'http';
 import cors from 'cors';
+import db from './db/db';
 
 dotenv.config();
 const app = express();
@@ -25,3 +26,14 @@ server
   .on('error', (error) => {
     throw new Error(error.message);
   });
+
+// Close the database connection when the process exits
+process.on('SIGINT', () => {
+  db.close((err: Error | null) => {
+    if (err) {
+      console.error('Error closing database:', err.message);
+    }
+    console.log('Database connection closed.');
+    process.exit(0);
+  });
+});
