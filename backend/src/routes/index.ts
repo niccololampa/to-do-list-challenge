@@ -27,6 +27,31 @@ router.post('/tasks', (req: Request, res: Response) => {
   });
 });
 
+// update all as completed
+
+// Mark all tasks as completed
+router.put('/tasks/all-complete', (_req: Request, res: Response) => {
+  db.run('UPDATE tasks SET completed =1', function (err: Error | null) {
+    if (err) {
+      res.status(400).json({ error: err.message });
+      return;
+    }
+    res.json({ message: 'all completed' });
+  });
+});
+
+// delete all completed
+router.delete('/tasks/completed', (_req: Request, res: Response) => {
+  db.run('DELETE FROM tasks WHERE completed = 1', function (err: Error | null) {
+    if (err) {
+      res.status(400).json({ error: err.message });
+      return;
+    }
+
+    res.json({ message: 'deleted all completed' });
+  });
+});
+
 // update
 router.put('/tasks/:id', (req: Request, res: Response) => {
   const { id } = req.params;
@@ -42,6 +67,18 @@ router.put('/tasks/:id', (req: Request, res: Response) => {
       res.json({ taskName, completed });
     }
   );
+});
+
+// delete all completed
+router.delete('/tasks/completed', (_req: Request, res: Response) => {
+  db.run('DELETE FROM tasks WHERE completed = 1', function (err: Error | null) {
+    if (err) {
+      res.status(400).json({ error: err.message });
+      return;
+    }
+
+    res.json({ message: 'Deleted all completed' });
+  });
 });
 
 // delete
