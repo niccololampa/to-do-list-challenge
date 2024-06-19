@@ -15,11 +15,15 @@ export const addTask = async (taskName: string) => {
   }
 };
 
-export const updateTask = async (
-  taskId: number,
-  taskName: string,
-  completed: boolean
-) => {
+export const updateTask = async ({
+  taskId,
+  taskName,
+  completed,
+}: {
+  taskId: number;
+  taskName: string;
+  completed: boolean;
+}) => {
   try {
     const response = await axios.put(`${BASE_URL}/tasks/${taskId}`, {
       taskName,
